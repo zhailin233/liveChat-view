@@ -1,15 +1,15 @@
 import axios from 'axios';
-import getRedirectToUrl from '../util/util';
+import {getRedirectToUrl} from '../util/util';  
 import { Toast } from 'antd-mobile';
 
 const initialState = {
-  redirectTO: '',
+  redirectTo: '',
   user: '',
   pwd: '',
   repeatPwd: '',
   type: '',
   msg: '',
-}
+};
 const AUTH_SUCCESS = 'AUTH_SUCCESS';
 const ERROR_MSG = 'ERROR_MSG';
 const LOAD_DATA = 'LOAD_DATA';
@@ -19,20 +19,20 @@ const LOGOUT = 'LOGOUT';
 export function user (state = initialState, action) {
   switch (action.type) {
     case AUTH_SUCCESS:
-      return {...state, msg: '', redirectTO: getRedirectToUrl(action.payload), ...action.payload}
+      return {...state, msg: '', redirectTo: getRedirectToUrl(action.payload), ...action.payload}
     case ERROR_MSG:
-      return
+      return {...state, msg: '', isAuth: false, msg: action.msg}
     case LOAD_DATA:
-      return
+      return {...state, ...action.payload} 
     case LOGOUT:
-      return
+      return {...initialState, redirectTo: `/login`} 
     default:
-      return state;
-  }
-}
+      return state; 
+  } 
+};
 
-// action creater
-errorMsg = (msg) => {
+// action creater 
+function errorMsg(msg) {
   return {
     msg,
     type: ERROR_MSG
@@ -40,7 +40,7 @@ errorMsg = (msg) => {
 }
 
 //登录，注册，完善信息都dispatch这个action
-authSuccess = (obj) => {
+function authSuccess(obj) {
   const {pwd, ...data} = obj;
   return {
     type: AUTH_SUCCESS,
@@ -48,14 +48,14 @@ authSuccess = (obj) => {
   }
 }
 
-loadData = (data) => {
+function loadData(data) {
   return {
     type: LOAD_DATA,
     payload: data
   }
 }
 
-logOut = (data) => {
+function logOut(data) {
   return {
     type: LOGOUT,
     payload: data
@@ -112,7 +112,7 @@ export function login({user, pwd}) {
             Toast.info(res.data.msg, 1)
             dispatch(errorMsg(res.data.msg))
           }
-        }
+        } 
       }
     })
   }
@@ -126,8 +126,20 @@ export function update(data) {
         if (res.status === 200) {
           if (res.data.code === 0) {
             dispatch(authSuccess(res.data.data))
+          } else {
+            if (res.data.msg) {
+              Toast.info(res.data.msg, 1)
+              dispatch(errorMsg(res.data.msg))
+            }  
           }
-        }
+        } 
       })
+  }
+}
+
+//校验用户信息
+export function userInfo(data) {
+  return dispatch => {
+    dispatch(loadData(data))
   }
 }

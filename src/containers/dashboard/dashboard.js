@@ -53,9 +53,9 @@ class DashBoard extends React.Component {
       <div>
         {
           pathname !== '/' 
-            ? <NavBar mode="dark" className="fixed-header"  icon={<Icon type="left" />} >
+            ? <NavBar mode="dark" className="fixed-header"  icon={<Icon type="left" />} > 
                 {
-                  navList.find( v => v.path === pathname).title //匹配navList中path和pathname 取出title
+                  navList.find( v => v.path === pathname).title //匹配navList中path和pathname 取出title  头部
                 }
               </NavBar>
             : null
@@ -64,13 +64,14 @@ class DashBoard extends React.Component {
           <Switch>
             {
               navList.map(v => (
-                <Route key={v.path} path={v.path} component={v.component}></Route>
+                <Route key={v.path} path={v.path} component={v.component}></Route>  //身体
               ))
             }
           </Switch>
         </div>
         <div>
-          <NavLinkBar data={navList}></NavLinkBar>
+          {/**底部 */}
+          <NavLinkBar data={navList}></NavLinkBar>  
         </div>
       </div>
     )
