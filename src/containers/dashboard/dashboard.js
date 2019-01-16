@@ -6,7 +6,12 @@ import User from '../user/user';
 import { NavBar, Icon } from 'antd-mobile';
 import { Route, Switch } from 'react-router-dom';
 import NavLinkBar from '../../components/nav-link-bar/nav-link-bar'
+import { connect } from 'react-redux';
 
+@connect(
+  state => state,
+  // {getChatList}
+)
 class DashBoard extends React.Component {
   constructor(props) {
     super(props)
@@ -24,7 +29,7 @@ class DashBoard extends React.Component {
           icon:'boss',
           title:'求职者列表',
           component:Boss,
-          // hide:user.type === 'seeker'
+          hide:user.type === 'seeker'
       },
       {
           path:'/seeker',
@@ -32,7 +37,7 @@ class DashBoard extends React.Component {
           icon:'job',
           title:'BOSS列表',
           component:Seeker,
-          // hide:user.type === 'boss'
+          hide:user.type === 'boss'
       },
       {
           path:'/msg',

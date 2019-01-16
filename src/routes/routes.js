@@ -16,7 +16,6 @@ import Chat from '../containers/chat/chat.js';
 
 class Routes extends Component {
 
-
 	render() {
 		return (
 			<BrowserRouter>
