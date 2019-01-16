@@ -29,7 +29,6 @@ class SeekerInfo extends React.Component {
   render() {
     const path = this.props.location.pathname;
     const redirect = this.props.redirectTo;
-    console.log(path, redirect)
     return (
       <div className='seekerinfo'>
         {/*完善信息成功后，跳转到其他页面*/}
@@ -45,7 +44,7 @@ class SeekerInfo extends React.Component {
         <WhiteSpace />
         <AvatarSelector selectAvatar={this.selectAvatar}  />
         <WhiteSpace />
-        <InputItem>
+        <InputItem onChange={(v) => this.onChange('title', v)}>
           求职岗位
         </InputItem>
         <TextareaItem 

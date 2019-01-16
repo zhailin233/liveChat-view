@@ -120,12 +120,13 @@ export function login({user, pwd}) {
 
 // 完善信息
 export function update(data) {
+  // console.log(data)
   return dispatch => {
     axios.post(`/users/update`, {data})
       .then(res => {
         if (res.status === 200) {
           if (res.data.code === 0) {
-            console.log(res)
+            // console.log(res)
             dispatch(authSuccess(res.data.data))
           } else {
             if (res.data.msg) {
