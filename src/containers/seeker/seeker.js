@@ -18,8 +18,6 @@ class Seeker extends React.Component {
   }
 
   render() {
-    console.log(this.props.userList)
-
     return (
       <div>
         <UserCard userList={this.props.userList} />

@@ -9,7 +9,7 @@ class Chat extends React.Component {
   render() {
     return (
       <div>
-Chat
+        Chat
       </div>
     )
   }

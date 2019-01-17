@@ -9,6 +9,10 @@ class UserCard extends React.Component {
     super(props)
   }
 
+  handleChat = (v) => {
+    this.props.history.push(`/chat/${v._id}`)
+  }
+
   render() {
     const Header = Card.Header;
     const Body = Card.Body;
@@ -17,11 +21,10 @@ class UserCard extends React.Component {
         <WingBlank>
           {
             this.props.userList.map(v => (
-              console.log(v),
               v.avatar 
                 ? (
-                    <div>
-                      <Card>
+                    <div key={v._id}>
+                      <Card onClick={this.handleChat.bind(this, v)}>
                         <Header
                           title={v.user}
                           thumb={require(`../../components/img/${v.avatar}.png`)}
