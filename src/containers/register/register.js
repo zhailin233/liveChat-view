@@ -10,7 +10,7 @@ import HocForm from '../../components/hoc-form/hoc-form';
 const RadioItem = Radio.RadioItem;
 @connect(
   state => state.user,  //将state.user映射到 Register组件
-  {register}    //对Register操作映射成Action 到store.dispatch方法的映射  
+  {register}    //HocForm 返回后的组件Register操作映射到register 通过调用register 操作Action
 )
 @HocForm  //将Register 组件传入 <Register  handleChange = {this.handleChange} state={this.state} { ...this.props }/>
 class Register extends React.Component {

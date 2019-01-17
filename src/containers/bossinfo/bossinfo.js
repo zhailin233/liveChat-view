@@ -5,15 +5,20 @@ import AvatarSelector from '../../components/avatar-selector/avatar-selector';
 import { connect } from 'react-redux';
 import { update } from '../../redux/user.redux'
 
-
 @connect(
-  state => state,
+  state => state.user,
   {update}
 )
 class BossInfo extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {  //默认为空 不然用户不填某一项会报错 
+      title:"",
+      company:"",
+      money:"",
+      desc:"",
+      avatar:""
+    }
   }
 
   selectAvatar = (avatarName) => {
@@ -29,9 +34,10 @@ class BossInfo extends React.Component {
   render() {
     const path =this.props.location.pathname;
     const redirect = this.props.redirectTo;
-
+    console.log(path, redirect)
     return (
       <div>
+         {/*完善信息成功后，跳转到其他页面*/}
         {
           redirect && redirect !== path ? <Redirect to={this.props.redirectTo}></Redirect> : ''
         }    

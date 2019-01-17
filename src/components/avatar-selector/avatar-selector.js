@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Grid } from 'antd-mobile';
+import { List, Grid, Toast } from 'antd-mobile';
 import PropsTypes from 'prop-types';
 
 class AvatarSelector extends React.Component {
@@ -25,7 +25,7 @@ class AvatarSelector extends React.Component {
             <img style={{ width: 20 }} src={this.state.icon} />
           </div>
         )
-      : '请选择头像'
+      : Toast.info('请先选择头像')
     return (
       <div>
         <List renderHeader={() => gridHeader}>
