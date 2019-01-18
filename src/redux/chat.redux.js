@@ -9,8 +9,8 @@ const MSG_READ = 'MSG_READ'   //读取
 
 const initState = {
   chatmsg: [],
-  users: '',
-  unread: '',  //
+  users: {},
+  unread: 0,  //
 }
 
 export function chat(state = initState, action) {
@@ -63,7 +63,7 @@ export function msgReceive() {
 export function sendMsg(from, to, msg) {
   return dispatch => {
     socket.emit('sendmsg', {from, to, msg})
-  }
+  } 
 }
 
 export function getChatList() {
@@ -80,7 +80,7 @@ export function getChatList() {
 
 export function readMsg(from) {
   return (dispatch, getState) => {
-    axios.psot('/users/readmsg', {from})
+    axios.post('/users/readmsg', {from})
       .then(res => {
         const userid = getState().user_id;
         if(res.status === 200 && res.data.code === 0) {

@@ -7,16 +7,25 @@ import { NavBar, Icon } from 'antd-mobile';
 import { Route, Switch } from 'react-router-dom';
 import NavLinkBar from '../../components/nav-link-bar/nav-link-bar'
 import { connect } from 'react-redux';
+import { getChatList,msgReceive } from '../../redux/chat.redux';
+
 
 @connect(
   state => state,
-  // {getChatList}
+  {getChatList, msgReceive}
 )
 class DashBoard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
   }
+  componentDidMount(){
+    if(!this.props.chat.chatmsg.length){
+        this.props.getChatList();
+        this.props.msgReceive();
+    }
+
+}
 
   render() {
     const {pathname} = this.props.location;
@@ -57,7 +66,9 @@ class DashBoard extends React.Component {
       <div>
         {
           pathname !== '/' 
-            ? <NavBar mode="dark" className="fixed-header"  icon={<Icon type="left" />} > 
+            ? <NavBar mode="dark" className="fixed-header"  icon={<Icon type="left" onClick={() => {
+              this.props.history.goBack()
+            }}/>} > 
                 {
                   navList.find( v => v.path === pathname).title //匹配navList中path和pathname 取出title  头部
                 }
