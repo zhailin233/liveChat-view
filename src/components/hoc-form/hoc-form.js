@@ -5,7 +5,7 @@ export default function HocForm(Com) {
     constructor(props) {
       super(props);
       this.state = {}
-      this.handleChange = this.handleChange.bind(this)
+      // this.handleChange = this.handleChange.bind(this)
     }
     handleChange = (key, value) => {
       this.setState({
