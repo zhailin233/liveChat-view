@@ -71,7 +71,7 @@ export function getChatList() {
     axios.get('/users/getmsglist')
       .then(res => {
         if (res.status === 200 && res.data.code === 0) {
-          const userid = getState().user_id;
+          const userid = getState().user._id;
           dispatch(msgList(res.data.data, res.data.users, userid))
         }
       })

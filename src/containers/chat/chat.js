@@ -59,7 +59,9 @@ class Chat extends React.Component {
     const chatMsg = this.props.chat.chatmsg.filter(v => v.chatid === currentChatId);
     const Item = List.Item;
     const users = this.props.chat.users;
-
+    if (!users[userid]) {
+      return null
+    }
 
     return (
       <div style={{ padding: '45px 0' }}>
