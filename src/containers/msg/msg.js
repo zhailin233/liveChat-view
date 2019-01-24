@@ -1,18 +1,23 @@
 import React  from 'react';
 import { List, Badge } from 'antd-mobile';
 import { connect } from 'react-redux';
+import {getChatList} from '../../redux/chat.redux'
 
 @connect(
-  state => state
+  state => state,
+  {getChatList}
 )
 class Msg extends React.Component {
   constructor(props){
     super(props)
     this.state = {}
+    this.props.getChatList()
   }
 
   getLast(arr) {
     return arr[arr.length - 1]
+  }
+  componentDidMount() {
   }
 
   render() {
@@ -37,6 +42,7 @@ class Msg extends React.Component {
             chatList.map((v, i) => {
               const targetId = v[0].from === userid ? v[0].to : v[0].from;
               const unreadNum = v.filter(v => !v.read && v.to === userid).length
+              // this.props.chat.unread = unreadNum; //
               const lastItem = this.getLast(v)
               if (!this.props.chat.users[targetId]) {
                 return null

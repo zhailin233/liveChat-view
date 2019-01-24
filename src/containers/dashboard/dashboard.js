@@ -21,7 +21,7 @@ class DashBoard extends React.Component {
   }
   componentDidMount(){
     if(!this.props.chat.chatmsg.length){
-        this.props.getChatList();
+        // this.props.getChatList();
         this.props.msgReceive();
     }
 

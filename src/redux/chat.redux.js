@@ -1,5 +1,6 @@
 import axios from 'axios';
 import io from 'socket.io-client';
+import { userInfo } from 'os';
 const socket = io('ws://192.168.88.174:3000');
 
 
@@ -12,19 +13,18 @@ const initState = {
   users: {},
   unread: 0,  //
 }
-
 export function chat(state = initState, action) {
   switch (action.type) {
     case MSG_LIST:
       return {...state, chatmsg: action.payload.data, users: action.payload.users, 
-        unread: action.payload.data.filter(v => !v.read && v.to === action.payload.userid).length};
+        unread: action.payload.data.filter(v => !v.read && v.to === action.payload.userid).length}; // read为false 并且 用户id和发给用户的id相同的个数
     case MSG_RECV:
       const n = action.payload.to === action.userid ? 1 : 0;
-      return {...state, chatmsg: [...state.chatmsg, action.payload], unread: state.unread + n};
+      return {...state, chatmsg: [...state.chatmsg, action.payload], unread: state.unread + n}; //收到一条消息 + 1
     case MSG_READ:
       const {from, num} = action.payload
       return {...state, chatmsg: state.chatmsg.map(v => ({...v, read: from === v.from ? true : v.read})), 
-        unread: state.unread - num};
+        unread: state.unread - num}; // 减去读掉的num
     default:
       return state
   }
@@ -63,6 +63,7 @@ export function msgReceive() {
 export function sendMsg(from, to, msg) {
   return dispatch => {
     socket.emit('sendmsg', {from, to, msg})
+
   } 
 }
 
@@ -72,6 +73,7 @@ export function getChatList() {
       .then(res => {
         if (res.status === 200 && res.data.code === 0) {
           const userid = getState().user._id;
+          console.log(res.data.data.filter(v => !v.read && v.to === userid).length)
           dispatch(msgList(res.data.data, res.data.users, userid))
         }
       })
