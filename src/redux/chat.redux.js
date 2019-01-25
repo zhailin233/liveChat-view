@@ -73,7 +73,6 @@ export function getChatList() {
       .then(res => {
         if (res.status === 200 && res.data.code === 0) {
           const userid = getState().user._id;
-          console.log(res.data.data.filter(v => !v.read && v.to === userid).length)
           dispatch(msgList(res.data.data, res.data.users, userid))
         }
       })
