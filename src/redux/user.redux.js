@@ -118,7 +118,7 @@ export function login({user, pwd}) {
   }
 }
 
-// 完善信息
+// 完善信息  
 export function update(data) {
   return dispatch => {
     axios.post(`/users/update`, {data})
@@ -137,7 +137,7 @@ export function update(data) {
   }
 }
 
-//校验用户信息
+//校验用户信息  
 export function userInfo(data) {
   return dispatch => {
     dispatch(loadData(data))
